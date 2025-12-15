@@ -41,7 +41,7 @@
 
 <h3 class="text-xl my-6">Users</h3>
 
-<div class="flex gap-2">
+<div class="flex gap-2 flex-wrap">
   {#each users() as user}
     <div
       class="rounded-full border border-secondary px-2 py-1 flex items-center gap-1"
