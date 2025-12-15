@@ -1,6 +1,6 @@
 <script lang="ts">
   import "./layout.css";
-  import favicon from "$lib/assets/favicon.svg";
+  import favicon from "$lib/assets/icon.png";
   import { auth } from "$lib/firebase";
   import { countdowns, currentUser } from "$lib/store";
   import {
@@ -40,10 +40,16 @@
   };
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+  <title>Shared countdowns</title>
+  <link rel="icon" href={favicon} />
+</svelte:head>
 
 <header class="flex p-2 items-center gap-2 border-b">
-  <h1 class="text-xl">Coundown app</h1>
+  <a href="/" class="flex items-center gap-2">
+    <img src={favicon} alt="" class="h-8" />
+    <h1 class="text-2xl hidden sm:block">Countdowns</h1>
+  </a>
   <div class="grow"></div>
   {#if $currentUser}
     <LogoutIcon />
