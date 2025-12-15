@@ -20,9 +20,9 @@
 
   auth.onAuthStateChanged(async (user) => {
     currentUser.set(user);
+    loading = false;
     if (!user) return;
     subscribeToCountdowns(user);
-    loading = false;
   });
 
   const subscribeToCountdowns = (user: User) => {
