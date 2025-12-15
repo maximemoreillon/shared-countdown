@@ -1,21 +1,8 @@
 <script lang="ts">
   // import { Temporal } from "@js-temporal/polyfill";
-  import { goto } from "$app/navigation";
   import Button from "$lib/components/ui/button/button.svelte";
-  import Calendar from "$lib/components/ui/calendar/calendar.svelte";
   import { countdowns, currentUser } from "$lib/store";
-  import { CalendarDate } from "@internationalized/date";
   import ArrowLeftIcon from "@lucide/svelte/icons/arrow-left";
-  import TrashIcon from "@lucide/svelte/icons/trash";
-  import {
-    setDoc,
-    getFirestore,
-    doc,
-    Timestamp,
-    addDoc,
-    collection,
-    deleteDoc,
-  } from "firebase/firestore";
   import { page } from "$app/stores";
   import { onDestroy, onMount } from "svelte";
   import dayjs from "dayjs";
@@ -27,15 +14,6 @@
 
   let id = $page.params.id;
 
-  // let remaining = {
-  //   // years: 0,
-  //   months: 0,
-  //   days: 0,
-  //   hours: 0,
-  //   minutes: 0,
-  //   seconds: 0,
-  // };
-
   let remaining = $state({
     years: 0,
     months: 0,
@@ -45,7 +23,7 @@
     seconds: 0,
   });
 
-  let countown = $derived(() => $countdowns.find((c) => c.id === id));
+  let countdown = $derived(() => $countdowns.find((c) => c.id === id));
 
   let interval: ReturnType<typeof setInterval>;
 
@@ -70,13 +48,10 @@
       const futureDate = dayjs(cd.data().timestamp.seconds * 1000);
       const now = dayjs();
 
-      // Calculate the difference in milliseconds
       const diffMs = futureDate.diff(now);
 
-      // Create a duration object from the difference
       const remainingDuration = dayjs.duration(diffMs);
 
-      // Extract the components manually
       const years = remainingDuration.years();
       const months = remainingDuration.months();
       const days = remainingDuration.days();
@@ -106,18 +81,23 @@
   <Button href="/countdowns" variant="ghost">
     <ArrowLeftIcon />
   </Button>
-  <h2 class="text-2xl">{countown()?.data()?.name || "Unnamed countdown"}</h2>
+  <h2 class="text-2xl">{countdown()?.data()?.name || "Unnamed countdown"}</h2>
   <div class="grow"></div>
-  <CountdownDeleteButton id={countown()?.id} />
+  <CountdownDeleteButton id={countdown()?.id} />
 </div>
 
-<div class="flex gap-2 justify-between my-8">
-  {#each units as unit}
-    <div class="flex items-center flex-col gap-2">
-      <div>{unit.label}</div>
-      <div class="text-2xl">{remaining[unit.key]}</div>
-    </div>
-  {/each}
-</div>
+{#if countdown()}
+  <div class="flex gap-2 justify-between my-8">
+    {#each units as unit}
+      <div class="flex items-center flex-col gap-2">
+        <div>{unit.label}</div>
+        <div class="text-2xl">{remaining[unit.key]}</div>
+      </div>
+    {/each}
+  </div>
 
-<CountdownUsersEdit id={countown()?.id} />
+  <div class="my-8 text-center">
+    Until {new Date(countdown()?.data().timestamp * 1000).toDateString()}
+  </div>
+  <CountdownUsersEdit id={countdown()?.id} />
+{/if}

@@ -6,6 +6,7 @@
   } from "firebase/auth";
   import { auth, googleProvider } from "$lib/firebase";
   import Button from "$lib/components/ui/button/button.svelte";
+  import LoginIcon from "@lucide/svelte/icons/log-in";
 
   // https://firebase.google.com/docs/auth/web/google-signin
   async function login() {
@@ -24,6 +25,7 @@
   }
 </script>
 
-<h2 class="text-2xl">Login</h2>
-
-<Button onclick={login}>Login with Google</Button>
+<Button onclick={login}>
+  <LoginIcon />
+  Login with Google
+</Button>

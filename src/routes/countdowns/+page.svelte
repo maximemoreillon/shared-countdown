@@ -24,7 +24,7 @@
         <!-- <Card.Content>
         <p>Card Content</p>
       </Card.Content> -->
-        <Card.Footer>
+        <Card.Footer class="flex justify-end">
           <Button href={`/countdowns/${countdown.id}`}>See</Button>
         </Card.Footer>
       </Card.Root>
