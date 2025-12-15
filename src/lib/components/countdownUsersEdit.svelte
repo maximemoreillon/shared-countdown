@@ -63,7 +63,7 @@
 
   <div class="flex gap-2 items-center">
     <Input
-      type="text"
+      type="email"
       placeholder="john@example.com"
       bind:value={newUserEmail}
     />
