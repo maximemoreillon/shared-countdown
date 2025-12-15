@@ -9,6 +9,7 @@
   import duration from "dayjs/plugin/duration";
   import CountdownDeleteButton from "$lib/components/countdownDeleteButton.svelte";
   import CountdownUsersEdit from "$lib/components/countdownUsersEdit.svelte";
+  import CountdownEditDialog from "$lib/components/countdownEditDialog.svelte";
 
   dayjs.extend(duration);
 
@@ -77,16 +78,17 @@
   ] as const;
 </script>
 
-<div class="flex items-center gap-2 my-4">
-  <Button href="/countdowns" variant="ghost">
-    <ArrowLeftIcon />
-  </Button>
-  <h2 class="text-2xl">{countdown()?.data()?.name || "Unnamed countdown"}</h2>
-  <div class="grow"></div>
-  <CountdownDeleteButton id={countdown()?.id} />
-</div>
-
 {#if countdown()}
+  <div class="flex items-center gap-2 my-4">
+    <Button href="/countdowns" variant="ghost">
+      <ArrowLeftIcon />
+    </Button>
+    <h2 class="text-2xl">{countdown()?.data()?.name || "Unnamed countdown"}</h2>
+    <div class="grow"></div>
+    <CountdownEditDialog countdown={countdown()} />
+    <CountdownDeleteButton id={countdown()?.id} />
+  </div>
+
   <div class="flex gap-2 justify-between my-8">
     {#each units as unit}
       <div class="flex items-center flex-col gap-2">

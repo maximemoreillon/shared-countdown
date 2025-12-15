@@ -20,9 +20,9 @@
     const cd = $countdowns.find((c) => c.id === id);
     if (!cd) return;
 
-    const userDoc = doc(db, "countdowns", id);
+    const countdownDoc = doc(db, "countdowns", id);
     const users = [...cd.data().users, newUserEmail];
-    await setDoc(userDoc, { users }, { merge: true });
+    await setDoc(countdownDoc, { users }, { merge: true });
   }
 
   async function deleteUser(email: string) {

@@ -15,7 +15,7 @@
     if (!confirm(`Delete countdown?`)) return;
     const db = getFirestore();
     loading = true;
-    await deleteDoc(doc(db, "users", $currentUser.uid, "countdowns", id));
+    await deleteDoc(doc(db, "countdowns", id));
     loading = false;
     return goto("/countdowns");
   }
