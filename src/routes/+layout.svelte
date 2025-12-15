@@ -46,9 +46,10 @@
 </svelte:head>
 
 <header class="flex p-2 items-center gap-2 border-b">
-  <a href="/" class="flex items-center gap-2">
+  <a href="/countdowns" class="flex items-center gap-2">
     <img src={favicon} alt="" class="h-8" />
-    <h1 class="text-2xl hidden sm:block">Countdowns</h1>
+    <!-- <h1 class="text-2xl hidden sm:block">Countdowns</h1> -->
+    <h1 class="text-2xl">Countdowns</h1>
   </a>
   <div class="grow"></div>
   {#if $currentUser}

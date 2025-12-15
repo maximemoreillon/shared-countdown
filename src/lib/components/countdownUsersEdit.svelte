@@ -39,7 +39,7 @@
   }
 </script>
 
-<h3 class="text-xl my-6">Users</h3>
+<h3 class="text-xl my-4">Users</h3>
 
 <div class="flex gap-2 flex-wrap">
   {#each users() as user}

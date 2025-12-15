@@ -14,6 +14,7 @@
     addDoc,
     collection,
   } from "firebase/firestore";
+  import ArrowLeftIcon from "@lucide/svelte/icons/arrow-left";
 
   const now = new Date();
   let value = $state<CalendarDate | undefined>(
@@ -49,7 +50,13 @@
   }
 </script>
 
-<Button href="/countdowns">Return</Button>
+<div class="flex items-center gap-2 my-4">
+  <Button href="/countdowns" variant="ghost">
+    <ArrowLeftIcon />
+  </Button>
+  <h2 class="text-2xl">New countdown</h2>
+  <div class="grow"></div>
+</div>
 
 <div class="flex flex-col items-center gap-2">
   <Calendar type="single" bind:value class="rounded-lg border shadow-sm" />

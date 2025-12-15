@@ -93,7 +93,7 @@
     {#each units as unit}
       <div class="flex items-center flex-col gap-2">
         <div>{unit.label}</div>
-        <div class="text-2xl">{remaining[unit.key]}</div>
+        <div class="text-3xl">{remaining[unit.key]}</div>
       </div>
     {/each}
   </div>
