@@ -99,7 +99,9 @@
   </div>
 
   <div class="my-8 text-center">
-    Until {new Date(countdown()?.data().timestamp * 1000).toDateString()}
+    Until {new Date(
+      countdown()?.data().timestamp.seconds * 1000
+    ).toDateString()}
   </div>
   <CountdownUsersEdit id={countdown()?.id} />
 {/if}
