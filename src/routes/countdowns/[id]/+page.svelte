@@ -35,7 +35,7 @@
 
       // // @ts-ignore
       // const target = Temporal.Instant.fromEpochMilliseconds(
-      //   countdown.data().timestamp.seconds * 1000
+      //   countdown.data().timestamp.toMillis()
       // );
 
       // // @ts-ignore
@@ -46,7 +46,7 @@
       //   smallestUnit: "seconds",
       // });
 
-      const futureDate = dayjs(cd.data().timestamp.seconds * 1000);
+      const futureDate = dayjs(cd.data().timestamp.toMillis());
       const now = dayjs();
 
       const diffMs = futureDate.diff(now);
@@ -99,9 +99,7 @@
   </div>
 
   <div class="my-8 text-center">
-    Until {new Date(
-      countdown()?.data().timestamp.seconds * 1000
-    ).toDateString()}
+    Until {new Date(countdown()?.data().timestamp.toMillis()).toDateString()}
   </div>
   <CountdownUsersEdit id={countdown()?.id} />
 {/if}

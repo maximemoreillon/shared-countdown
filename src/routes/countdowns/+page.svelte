@@ -20,7 +20,7 @@
         <Card.Header>
           <Card.Title>{countdown.data().name}</Card.Title>
           <Card.Description>
-            {new Date(countdown.data().timestamp.seconds * 1000).toDateString()}
+            {new Date(countdown.data().timestamp.toMillis()).toDateString()}
           </Card.Description>
         </Card.Header>
         <!-- <Card.Content>
