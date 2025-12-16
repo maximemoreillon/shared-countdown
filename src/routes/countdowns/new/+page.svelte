@@ -15,20 +15,12 @@
     collection,
   } from "firebase/firestore";
   import ArrowLeftIcon from "@lucide/svelte/icons/arrow-left";
+  import CountdownForm from "$lib/components/countdownForm.svelte";
 
-  const now = new Date();
-  let value = $state<CalendarDate | undefined>(
-    new CalendarDate(now.getFullYear(), now.getMonth() + 1, now.getDate())
-  );
-  let name = $state("");
-
-  async function onclick() {
-    if (!value) return;
-    if (!name) return alert("Name not defined");
+  async function onSubmit(data: any) {
+    if (!data.timestamp) return alert("Timestamp not defined");
+    if (!data.name) return alert("Name not defined");
     if (!$currentUser) return;
-    const date = value.toDate("Asia/Tokyo");
-
-    const timestamp = Timestamp.fromDate(date);
 
     const db = getFirestore();
 
@@ -41,8 +33,7 @@
     // );
 
     const docRef = await addDoc(collection(db, "countdowns"), {
-      name,
-      timestamp,
+      ...data,
       users: [$currentUser.email],
     });
 
@@ -58,11 +49,4 @@
   <div class="grow"></div>
 </div>
 
-<div class="flex flex-col items-center gap-2">
-  <Calendar type="single" bind:value class="rounded-lg border shadow-sm" />
-  <div class="flex w-full max-w-sm flex-col gap-1.5">
-    <Label for="name">Name</Label>
-    <Input type="text" placeholder="New year's eve" bind:value={name} />
-  </div>
-  <Button {onclick}>Register</Button>
-</div>
+<CountdownForm {onSubmit} />
