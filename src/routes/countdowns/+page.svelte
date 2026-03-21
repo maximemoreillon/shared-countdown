@@ -16,20 +16,16 @@
 <ul class="flex flex-col gap-2 my-6">
   {#each $countdowns as countdown}
     <li>
-      <Card.Root>
-        <Card.Header>
-          <Card.Title>{countdown.data().name}</Card.Title>
-          <Card.Description>
-            {new Date(countdown.data().timestamp.toMillis()).toDateString()}
-          </Card.Description>
-        </Card.Header>
-        <!-- <Card.Content>
-        <p>Card Content</p>
-      </Card.Content> -->
-        <Card.Footer class="flex justify-end">
-          <Button href={`/countdowns/${countdown.id}`}>See</Button>
-        </Card.Footer>
-      </Card.Root>
+      <a href={`/countdowns/${countdown.id}`}>
+        <Card.Root>
+          <Card.Header>
+            <Card.Title>{countdown.data().name}</Card.Title>
+            <Card.Description>
+              {new Date(countdown.data().timestamp.toMillis()).toDateString()}
+            </Card.Description>
+          </Card.Header>
+        </Card.Root>
+      </a>
     </li>
   {/each}
 </ul>

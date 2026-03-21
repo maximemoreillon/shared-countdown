@@ -26,7 +26,7 @@
   }
 
   async function deleteUser(email: string) {
-    console.log({ email });
+    if (!confirm(`Delete ${email} ?`)) return;
     const cd = $countdowns.find((c) => c.id === id);
     if (!cd) return;
 
@@ -41,7 +41,7 @@
 
 <h3 class="text-xl my-4">Users</h3>
 
-<div class="flex gap-2 flex-wrap">
+<div class="flex gap-2 flex-col items-start">
   {#each users() as user}
     <div
       class="rounded-full border border-secondary px-2 py-1 flex items-center gap-1"
