@@ -6,6 +6,7 @@
 
   import Input from "./ui/input/input.svelte";
   import { doc, getFirestore, setDoc } from "firebase/firestore";
+  import { fa } from "zod/locales";
 
   const db = getFirestore();
 
@@ -15,6 +16,7 @@
   let users = $derived(() => countown()?.data().users);
 
   let newUserEmail = $state("");
+  let pending = $state(false);
 
   async function addUser() {
     const cd = $countdowns.find((c) => c.id === id);
@@ -22,7 +24,15 @@
 
     const countdownDoc = doc(db, "countdowns", id);
     const users = [...cd.data().users, newUserEmail];
-    await setDoc(countdownDoc, { users }, { merge: true });
+    pending = true;
+    try {
+      await setDoc(countdownDoc, { users }, { merge: true });
+    } catch (error) {
+      alert(error);
+    } finally {
+      pending = true;
+      newUserEmail = "";
+    }
   }
 
   async function deleteUser(email: string) {
@@ -67,7 +77,7 @@
       placeholder="john@example.com"
       bind:value={newUserEmail}
     />
-    <Button onclick={addUser}>
+    <Button onclick={addUser} disabled={!newUserEmail || pending}>
       <UserPlusIcon />
     </Button>
   </div>
